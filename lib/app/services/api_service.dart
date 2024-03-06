@@ -11,6 +11,7 @@ class ApiService extends GetxService {
     try {
       var randomInt = Random().nextInt(100) % 3;
       if (randomInt == 0) {
+        await Future.delayed(const Duration(seconds: 2));
         throw "API RANDOM ERROR";
       }
       var response = await client.get(path);
@@ -18,7 +19,7 @@ class ApiService extends GetxService {
     } on DioException catch (e) {
       return ApiResponse.failed(e.message ?? "Dio error", e.error);
     } catch (e) {
-      print(e);
+      printError(info: e.toString());
       return ApiResponse.failed(e.toString(), e);
     }
   }
@@ -30,7 +31,7 @@ class ApiService extends GetxService {
     } on DioException catch (e) {
       return ApiResponse.failed(e.message ?? "Dio error", e.error);
     } catch (e) {
-      print(e);
+      printError(info: e.toString());
       return ApiResponse.failed('Неизвестная ошибка', e);
     }
   }

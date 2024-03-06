@@ -21,6 +21,7 @@ class HomeView extends GetView<HomeController> {
               ElevatedButton(
                   onPressed: () => controller.getProducts(),
                   child: const Text("UPDATE")),
+              const SizedBox(height: 15),
               Center(
                 child: controller.products.when(
                   loading: () => const CircularProgressIndicator(),

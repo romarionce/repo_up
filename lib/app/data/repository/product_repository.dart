@@ -16,8 +16,6 @@ class ProductRepository {
     return data.when(
         loading: () => ProductListResponse.loading(),
         success: (jsonData) {
-          print('SUCCESS');
-          print(jsonData);
           var productsJson = jsonData['products'] as List<dynamic>;
           var products =
               productsJson.map((json) => Product.fromJson(json)).toList();
