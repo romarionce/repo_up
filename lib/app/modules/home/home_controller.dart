@@ -1,23 +1,24 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
-  //TODO: Implement HomeController
+import 'package:repo_up/app/data/repository/product_repository.dart';
 
-  final count = 0.obs;
+class HomeController extends GetxController {
+  final ProductRepository _productRepository;
+
+  final _products = ProductListResponse.loading().obs;
+  HomeController(this._productRepository);
+
   @override
   void onInit() {
+    getProducts();
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  Future<void> getProducts() async {
+    _products.value = ProductListResponse.loading();
+    _products.value = await _productRepository.getProducts();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  ProductListResponse get products => _products.value;
 }
